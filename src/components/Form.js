@@ -29,9 +29,6 @@ class Form extends React.Component {
     }
     field.errors = validationRunner(field, this.state.fields);
     field.invalid = field.errors.length > 0;
-console.log('==========field.errors=========');
-console.log(field.errors);
-console.log('==========END field.errors=========');
     this.setState({
       fields: this.state.fields.map(x => x.name === fieldName ? field : x),
       formIsValid: this.state.fields.some(f => f.errors && f.errors.length > 0)
@@ -53,17 +50,15 @@ console.log('==========END field.errors=========');
   onSubmitHandler(e) {
     e.preventDefault();
     const errors = validationRunner(this.state.fields);
-    if( errors && errors.length <= 0){
-    // this.submitHandler(this.generateNameValueModel());
-      alert(JSON.stringify(this.generateNameValueModel()));
+    if(errors.length <= 0){
+    this.submitHandler(this.generateNameValueModel());
+      // alert(JSON.stringify(this.generateNameValueModel()));
     }else{
-      alert(JSON.stringify(errors));
+      this.errors = errors;
     }
   }
 
-
   render() {
-
     return (<form onSubmit={this.onSubmitHandler.bind(this)} >
       {this.newChildren}
     </form>)
