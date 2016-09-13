@@ -6,7 +6,9 @@ import Select from 'react-select';
 // import uuid from 'uuid';
 
 const _Input = ({data, containerStyle, dispatch}) => {
-
+console.log('==========dataXXXXXX=========');
+console.log(data);
+console.log('==========END data=========');
   let validationState = data.isvalid ?  'input__success' : 'input__error';
   let style = 'input__container__' + (data.type ? data.type : 'input') + ' ' + validationState;
   let val = data.errors.length > 0 ? data.error : '';

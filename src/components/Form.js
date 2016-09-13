@@ -19,6 +19,10 @@ class Form extends React.Component {
 
   }
 
+  componentWillUpdate(nextProps, nextState){
+    this.newChildren = decorateInputs(nextProps.children, nextState.fields);
+  }
+
   handleChange(fieldName, value, change) {
     let field = this.state.fields.filter(x => x.name === fieldName)[0];
     if (!field) {
