@@ -2,7 +2,7 @@
   "name": "redux-datatable",
   "version": "0.0.1",
   "description": "",
-  "main": "lib/redux-datatable.js",
+  "main": "lib/freakin-react-forms.js",
   "scripts": {
     "start": "webpack-dev-server --progress --config ./webpack.config.js",
     "build": "webpack --config ./webpack.build.config.js --progress",
@@ -28,6 +28,7 @@
     "postcss-import": "^8.1.2",
     "postcss-loader": "^0.9.1",
     "precss": "^1.4.0",
+    "react-select": "^1.0.0-rc.1",
     "redux-devtools": "^3.3.1",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.0.9",
@@ -38,21 +39,10 @@
     "webpack-validator": "^2.2.7"
   },
   "dependencies": {
-    "color": "^0.11.3",
-    "deep-assign": "^2.0.0",
-    "deepmerge": "^0.2.10",
-    "invariant": "^2.2.1",
-    "jsen": "^0.6.1",
-    "lodash": "^4.15.0",
-    "ramda": "^0.21.0",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-hot-loader": "^3.0.0-beta.2",
-    "react-redux": "^4.4.5",
-    "react-select": "^1.0.0-rc.1",
     "redux": "^3.5.2",
-    "redux-logger": "^2.6.1",
-    "redux-thunk": "^2.0.1",
-    "uuid": "^2.0.2"
+    "redux-logger": "^2.6.1"
   }
 }

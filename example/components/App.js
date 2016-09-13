@@ -1,6 +1,6 @@
 import React from 'react';
 import Form from '../../src/components/Form';
-import Input from '../../src/components/Input';
+import Input from './Input';
 
 export default () => {
 
