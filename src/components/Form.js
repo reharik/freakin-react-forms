@@ -63,12 +63,13 @@ class Form extends React.Component {
       return x;
     });
 
-    this.setState({fields:newFieldsState , formIsValid: this.errors.length <= 0, errors: this.errors});
-    if(this.errors.length <= 0){
-    this.submitHandler(this.generateNameValueModel());
+    this.setState({fields: newFieldsState, formIsValid: this.errors.length <= 0, errors: this.errors});
+    if (this.errors.length <= 0) {
+      this.submitHandler(this.generateNameValueModel());
       // alert(JSON.stringify(this.generateNameValueModel()));
+    }
   }
-
+  
   render() {
     return (<form onSubmit={this.onSubmitHandler.bind(this)} >
       {this.newChildren}
