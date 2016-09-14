@@ -9,7 +9,7 @@ class Form extends React.Component {
     this.submitHandler = props.submitHandler;
 
     const eventHandler = {onChangeHandler: this.onChangeHandler.bind(this), onBlurHandler: this.onBlurHandler(this)};
-    const fields = normalizeModel(props.model,{}, eventHandler);
+    const fields = normalizeModel(props, {}, eventHandler);
 
     this.state = {
       fields,

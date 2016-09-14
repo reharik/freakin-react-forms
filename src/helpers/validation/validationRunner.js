@@ -17,5 +17,10 @@ export default (field, fields) => {
   }
   return field.rules
     .filter((rule) => !validationRules[rule.rule](field, rule, fields))
-    .map((rule) => ({fieldName: field.name, message: errorMessages(field.name, field.value, rule)}));
+    .map((rule) => ({
+      formName: field.formName,
+      fieldName: field.name,
+      message: errorMessages(field.label, field.value, rule),
+      rule: rule.rule
+    }));
 };

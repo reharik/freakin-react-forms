@@ -1,7 +1,8 @@
 import uuid from 'uuid'
 
-const normalizeModel = (model, data, events) => {
-  return model && model.map((x, i) => {
+const normalizeModel = (props, data, events) => {
+  var formName = props.formName || uuid.v4();
+  return props.model && props.model.map((x, i) => {
     //validate required props
       return {
         type: x.type,
@@ -14,7 +15,8 @@ const normalizeModel = (model, data, events) => {
         onBlur: events.onBlurHandler,
         errors: [],
         invalid: false,
-        key: x.name + i
+        key: formName + '_' + i,
+        formName
       }
   })
 };
