@@ -58,7 +58,7 @@ class Form extends React.Component {
     e.preventDefault();
     this.errors = [];
     var newFieldsState = this.state.fields.map(x => {
-      x.errors = validationRunner(x, this.state.fields);
+      x.errors = this.validateField(x, this.state.fields);
       this.errors.concat(x.errors);
       return x;
     });
@@ -69,7 +69,7 @@ class Form extends React.Component {
       // alert(JSON.stringify(this.generateNameValueModel()));
     }
   }
-  
+
   render() {
     return (<form onSubmit={this.onSubmitHandler.bind(this)} >
       {this.newChildren}
