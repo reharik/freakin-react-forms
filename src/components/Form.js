@@ -23,6 +23,8 @@ class Form extends React.Component {
     this.newChildren = decorateInputs(nextProps.children, nextState.fields);
   }
 
+  validateField(field, fields) { return validationRunner(field, fields); }
+
   handleChange(fieldName, value, change) {
     let field = this.state.fields.filter(x => x.name === fieldName)[0];
     if (!field) {
@@ -31,7 +33,8 @@ class Form extends React.Component {
     if (change) {
       field.value = value;
     }
-    field.errors = validationRunner(field, this.state.fields);
+    field.errors = this.validateField(field, this.state.fields);
+
     field.invalid = field.errors.length > 0;
     this.setState({
       fields: this.state.fields.map(x => x.name === fieldName ? field : x),
@@ -53,13 +56,15 @@ class Form extends React.Component {
 
   onSubmitHandler(e) {
     e.preventDefault();
-    const errors = validationRunner(this.state.fields);
-    if(errors.length <= 0){
+    this.errors = [];
+    this.state.fields.forEach(x=> {
+      x.errors = validationRunner(x, this.state.fields);
+      this.errors.concat(x.errors);
+    });
+
+    if(this.errors.length <= 0){
     this.submitHandler(this.generateNameValueModel());
       // alert(JSON.stringify(this.generateNameValueModel()));
-    }else{
-      this.errors = errors;
-    }
   }
 
   render() {
