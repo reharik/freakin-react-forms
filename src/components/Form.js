@@ -57,11 +57,13 @@ class Form extends React.Component {
   onSubmitHandler(e) {
     e.preventDefault();
     this.errors = [];
-    this.state.fields.forEach(x=> {
+    var newFieldsState = this.state.fields.map(x => {
       x.errors = validationRunner(x, this.state.fields);
       this.errors.concat(x.errors);
+      return x;
     });
 
+    this.setState({fields:newFieldsState , formIsValid: this.errors.length <= 0, errors: this.errors});
     if(this.errors.length <= 0){
     this.submitHandler(this.generateNameValueModel());
       // alert(JSON.stringify(this.generateNameValueModel()));
