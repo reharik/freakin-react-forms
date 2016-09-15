@@ -59,7 +59,7 @@ class Form extends React.Component {
     this.errors = [];
     var newFieldsState = this.state.fields.map(x => {
       x.errors = this.validateField(x, this.state.fields);
-      this.errors.concat(x.errors);
+      this.errors = this.errors.concat(x.errors);
       return x;
     });
 
