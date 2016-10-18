@@ -4,24 +4,19 @@ const normalizeModel = (props, data, events) => {
   var formName = props.formName || uuid.v4();
   return props.model && props.model.map((x, i) => {
     //validate required props
-      const result = {
-        type: x.type,
-        name: x.name,
-        label: propToLabel(x.label || x.name),
-        placeholder: propToLabel(x.placeholder) || propToLabel(x.label || x.name),
-        rules: x.rules || [],
-        value: data[x.name] || '',
-        onChange: events.onChangeHandler,
-        onBlur: events.onBlurHandler,
-        errors: [],
-        invalid: false,
-        key: formName + '_' + i,
-        formName
-      }
-      // Add in custom attributes from model
-      for (var attrname in x) { result[attrname] = x[attrname]; }
-      return result;
-    })
+    let clone = Object.assign({}, x);
+    clone.label = propToLabel(x.label || x.name),
+    clone.placeholder = propToLabel(x.placeholder) || propToLabel(x.label || x.name),
+    clone.rules = x.rules || [],
+    clone.value = data[x.name] || '',
+    clone.onChange = events.onChangeHandler,
+    clone.onBlur = events.onBlurHandler,
+    clone.errors = [],
+    clone.invalid = false,
+    clone.key = formName + '_' + i,
+    clone.formName
+    return clone;
+  })
 };
 
 const propToLabel = function(val) {
