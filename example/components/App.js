@@ -9,7 +9,8 @@ export default () => {
       type: 'text',
       name: 'userName',
       label: 'User Name',
-      rules: [{rule:'required'}]
+      rules: [{rule:'required'}],
+      customAttr: 'this is a custom attr'
     },
     {
       type: 'password',

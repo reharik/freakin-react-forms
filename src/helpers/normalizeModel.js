@@ -4,7 +4,7 @@ const normalizeModel = (props, data, events) => {
   var formName = props.formName || uuid.v4();
   return props.model && props.model.map((x, i) => {
     //validate required props
-      return {
+      const result = {
         type: x.type,
         name: x.name,
         label: propToLabel(x.label || x.name),
@@ -18,7 +18,10 @@ const normalizeModel = (props, data, events) => {
         key: formName + '_' + i,
         formName
       }
-  })
+      // Add in custom attributes from model
+      for (var attrname in x) { result[attrname] = x[attrname]; }
+      return result;
+    })
 };
 
 const propToLabel = function(val) {
