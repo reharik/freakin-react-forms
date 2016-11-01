@@ -5,16 +5,15 @@ const normalizeModel = (props, data, events) => {
   return props.model && props.model.map((x, i) => {
     //validate required props
     let clone = Object.assign({}, x);
-    clone.label = propToLabel(x.label || x.name),
-    clone.placeholder = propToLabel(x.placeholder) || propToLabel(x.label || x.name),
-    clone.rules = x.rules || [],
-    clone.value = data[x.name] || '',
-    clone.onChange = events.onChangeHandler,
-    clone.onBlur = events.onBlurHandler,
-    clone.errors = [],
-    clone.invalid = false,
-    clone.key = formName + '_' + i,
-    clone.formName
+    clone.label = propToLabel(x.label || x.name);
+    clone.placeholder = propToLabel(x.placeholder) || propToLabel(x.label || x.name);
+    clone.rules = x.rules || [];
+    clone.value = data[x.name] || '';
+    clone.onChange = events.onChangeHandler;
+    clone.onBlur = events.onBlurHandler;
+    clone.errors = [];
+    clone.invalid = false;
+    clone.key = formName + '_' + i;
     return clone;
   })
 };
