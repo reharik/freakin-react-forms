@@ -15,12 +15,6 @@ class Form extends React.Component {
       fields,
       formIsValid: true
     };
-    this.newChildren = decorateInputs(this.props.children, this.state.fields);
-
-  }
-
-  componentWillUpdate(nextProps, nextState){
-    this.newChildren = decorateInputs(nextProps.children, nextState.fields);
   }
 
   validateField(field, fields) { return validationRunner(field, fields); }
@@ -39,7 +33,7 @@ class Form extends React.Component {
     this.setState({
       fields: this.state.fields.map(x => x.name === fieldName ? field : x),
       formIsValid: this.state.fields.some(f => f.errors && f.errors.length > 0)
-    })
+    });
   }
 
   generateNameValueModel() {
@@ -66,11 +60,13 @@ class Form extends React.Component {
     this.setState({fields: newFieldsState, formIsValid: this.errors.length <= 0, errors: this.errors});
     if (this.errors.length <= 0) {
       this.submitHandler(this.generateNameValueModel());
-      // alert(JSON.stringify(this.generateNameValueModel()));
     }
   }
 
   render() {
+    // I have moved this down to render, as it is necessary when using "connect"ed inputs from redux
+    // also superficial evidence is that it does not affect the number of time decorate is called
+    this.newChildren = decorateInputs(this.props.children, this.state.fields);
     return (<form onSubmit={this.onSubmitHandler.bind(this)} >
       {this.newChildren}
     </form>)

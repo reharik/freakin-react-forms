@@ -8,7 +8,7 @@ const decorateInput = (children, model) => {
       if (!modelProperty) {
         throw new Error(`No property on model with name: ${x.frfProperty}!`)
       }
-      return React.cloneElement(x, {data: modelProperty});
+      return React.cloneElement(x, {data: modelProperty, dataVal:modelProperty.value});
     }
 
     var clonedItems = decorateInput(x.props.children, model);
