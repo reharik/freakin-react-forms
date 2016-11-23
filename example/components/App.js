@@ -19,7 +19,7 @@ export default () => {
     }
   ];
   return (<div className="redux__datatable__app" >
-    <Form model={model} >
+    <Form model={model} submitHandler={x=>{}} >
       <div><Input frfProperty="userName" /></div>
       <div><Input frfProperty="password" /></div>
       <input type="submit" value="submit"></input>

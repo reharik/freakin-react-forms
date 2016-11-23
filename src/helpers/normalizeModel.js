@@ -1,6 +1,6 @@
 import uuid from 'uuid'
 
-const normalizeModel = (props, data, events) => {
+const normalizeModel = (props, data, events)=>{
   var formName = props.formName || uuid.v4();
   return props.model && props.model.map((x, i) => {
     //validate required props

@@ -25,6 +25,7 @@ class Form extends React.Component {
       return;
     }
     if (change) {
+      field.dirty = field.value !== value;
       field.value = value;
     }
     field.errors = this.validateField(field, this.state.fields);
@@ -37,7 +38,7 @@ class Form extends React.Component {
   }
 
   generateNameValueModel() {
-    return this.state.fields.reduce((x, y) =>{ x[y.name] = y.value; return x; }, {});
+    return this.state.fields.reduce((x, y) => { x[y.name] = y.value; return x; }, {});
   }
 
   onChangeHandler(e) {
@@ -55,7 +56,11 @@ class Form extends React.Component {
       x.errors = this.validateField(x, this.state.fields);
       this.errors = this.errors.concat(x.errors);
       return x;
-    });
+    })
+    .reduce((prev, next) => {
+      prev[next.name] = next;
+      return prev;
+    }, {});
 
     this.setState({fields: newFieldsState, formIsValid: this.errors.length <= 0, errors: this.errors});
     if (this.errors.length <= 0) {
