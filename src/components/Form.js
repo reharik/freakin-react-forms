@@ -92,7 +92,7 @@ class Form extends React.Component {
 
 Form.propTypes = {
   children: PropTypes.array,
-  submitHandler: PropTypes.func.required
+  submitHandler: PropTypes.func
 };
 
 export default Form;
