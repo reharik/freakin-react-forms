@@ -3,7 +3,8 @@ import selectn from 'selectn';
 
 const decorateInput = (children, model) => {
   return React.Children.map(children, x => {
-    if (!x.props) { return x; }
+    // if you have ternary logic that returns null x will be null
+    if (!x || !x.props) { return x; }
     const property = model[selectn('frfProperty.name', x.props)];
     if (property) {
       if (typeof property !== 'object') {
