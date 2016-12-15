@@ -71,7 +71,7 @@ class Form extends React.Component {
       fields[x].errors = this.validateField(fields[x], this.state.fields);
       this.errors = this.errors.concat(fields[x].errors);
       return fields[x];
-    });
+    }).reduce((x, y) =>{ x[y.name] = y; return x; }, {});
 
     this.setState({fields: newFieldsState, formIsValid: this.errors.length <= 0, errors: this.errors});
     if (this.errors.length <= 0) {
