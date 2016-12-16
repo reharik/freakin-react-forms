@@ -19,15 +19,6 @@ class Form extends React.Component {
     };
   }
 
-  componentWillReceiveProps(newProps) {
-    const fields = normalizeModel(newProps, this.eventHandler);
-
-    this.state = {
-      fields,
-      formIsValid: true
-    };
-  }
-
   validateField(field, fields) { return validationRunner(field, fields); }
 
   handleChange(fieldName, value, change) {
