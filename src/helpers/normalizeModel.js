@@ -18,6 +18,7 @@ const normalizeModel = (props, events) => {
     clone.placeholder = propToLabel(item.placeholder) || propToLabel(item.label || item.name);
     clone.rules = item.rules || [];
     clone.value = item.value || '';
+    clone.originalValue = item.value || '';
     clone.onChange = events.onChangeHandler;
     clone.onBlur = events.onBlurHandler;
     clone.errors = [];
