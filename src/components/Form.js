@@ -12,7 +12,7 @@ class Form extends React.Component {
   }
 
   componentWillMount() {
-    const fields = normalizeModel(trimModel(this.props.children, this.props.model) ,this.props.formName, this.eventHandler);
+    const fields = normalizeModel(this.props.model ,this.props.formName, this.eventHandler);
 
     this.state = {
       fields,
