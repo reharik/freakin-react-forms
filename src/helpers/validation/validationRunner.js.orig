@@ -16,8 +16,13 @@ export default (field, fields) => {
     return _valid;
   }
   return field.rules
+<<<<<<< HEAD
+    .filter((rule) => !validationRules[rule.rule](field, rule, fields))
+    .map((rule) => ({
+=======
     .filter(rule => !validationRules[rule.rule](field, rule, fields))
     .map(rule => ({
+>>>>>>> d44a9a6cb6aed77fc47177453c6a3a5370976072
       formName: field.formName,
       fieldName: field.name,
       message: errorMessages(field.label, field.value, rule),

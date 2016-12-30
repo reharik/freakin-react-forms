@@ -20,20 +20,34 @@ const webpackConfig = {
   },
 
   externals: {
+<<<<<<< HEAD
+    "react":"react",
+    "react-dom":"react-dom",
+    "react-hot-loader":"react-hot-loader",
+=======
     react: 'react',
     'react-dom': 'react-dom',
     'react-hot-loader': 'react-hot-loader'
+>>>>>>> d44a9a6cb6aed77fc47177453c6a3a5370976072
   },
 
   module: {
     loaders: [
+<<<<<<< HEAD
+      { test: /\.jsx?$/, include: [ path.resolve(__dirname, 'src')], loader: 'babel'},
+=======
       { test: /\.jsx?$/, include: [ path.resolve(__dirname, 'src')], loader: 'babel'}
+>>>>>>> d44a9a6cb6aed77fc47177453c6a3a5370976072
     ]
   },
 
   plugins: [
     //see possible syntax errors at the browser console instead of hmre overlay
+<<<<<<< HEAD
+    new webpack.NoErrorsPlugin(),
+=======
     new webpack.NoErrorsPlugin()
+>>>>>>> d44a9a6cb6aed77fc47177453c6a3a5370976072
   ],
 
   resolve: {

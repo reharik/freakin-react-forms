@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { PropTypes } from 'react';
 import validationRunner from './../helpers/validation/validationRunner';
 import normalizeModel from './../helpers/normalizeModel';
-import decorateInputs from './../helpers/decorateInputs'
+import decorateInputs from './../helpers/decorateInputs';
+import trimModel from './../helpers/trimModel';
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
     this.submitHandler = props.submitHandler;
+    this.eventHandler = {onChangeHandler: this.onChangeHandler.bind(this), onBlurHandler: this.onBlurHandler(this)};
+  }
 
-    const eventHandler = {onChangeHandler: this.onChangeHandler.bind(this), onBlurHandler: this.onBlurHandler(this)};
-    const fields = normalizeModel(props, {}, eventHandler);
+  componentWillMount() {
+    const fields = normalizeModel(trimModel(this.props.children, this.props.model) ,this.props.formName, this.eventHandler);
 
     this.state = {
       fields,
@@ -20,7 +23,8 @@ class Form extends React.Component {
   validateField(field, fields) { return validationRunner(field, fields); }
 
   handleChange(fieldName, value, change) {
-    let field = this.state.fields.filter(x => x.name === fieldName)[0];
+    const fields = this.state.fields;
+    let field = fields[Object.keys(fields).filter(x => fields[x].name === fieldName)[0]];
     if (!field) {
       return;
     }
@@ -28,17 +32,20 @@ class Form extends React.Component {
       field.dirty = field.value !== value;
       field.value = value;
     }
-    field.errors = this.validateField(field, this.state.fields);
+    field.errors = this.validateField(field, fields);
 
     field.invalid = field.errors.length > 0;
     this.setState({
-      fields: this.state.fields.map(x => x.name === fieldName ? field : x),
-      formIsValid: this.state.fields.some(f => f.errors && f.errors.length > 0)
+      fields: Object.keys(fields)
+        .map(x => fields[x].name === fieldName ? field : fields[x])
+        .reduce((x, y) =>{ x[y.name] = y; return x; }, {}),
+      formIsValid: Object.keys(fields).some(f => fields[f].errors && fields[f].errors.length > 0)
     });
   }
 
   generateNameValueModel() {
-    return this.state.fields.reduce((x, y) => { x[y.name] = y.value; return x; }, {});
+    const fields = this.state.fields;
+    return Object.keys(fields).reduce((x, y) =>{ x[y] = fields[y].value; return x; }, {});
   }
 
   onChangeHandler(e) {
@@ -74,8 +81,14 @@ class Form extends React.Component {
     this.newChildren = decorateInputs(this.props.children, this.state.fields);
     return (<form onSubmit={this.onSubmitHandler.bind(this)} >
       {this.newChildren}
-    </form>)
+    </form>);
   }
 }
+
+
+Form.propTypes = {
+  children: PropTypes.array,
+  submitHandler: PropTypes.func.required
+};
 
 export default Form;
