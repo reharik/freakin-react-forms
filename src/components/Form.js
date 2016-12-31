@@ -59,7 +59,9 @@ class Form extends React.Component {
   onSubmitHandler(e) {
     e.preventDefault();
     this.errors = [];
-    var newFieldsState = this.state.fields.map(x => {
+    // var newFieldsState = this.state.fields.map(x => {
+      var newFieldsState = Object.keys(this.state.fields).map(x => this.state.fields[x]).map (x=> {
+
       x.errors = this.validateField(x, this.state.fields);
       this.errors = this.errors.concat(x.errors);
       return x;
