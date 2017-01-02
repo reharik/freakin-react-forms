@@ -24,8 +24,11 @@ class Form extends React.Component {
     const model = newProps.model;
     const fields = this.state.fields;
     const newFields = Object.keys(fields).map(x => {
-      fields[x].value = model[x].value;
-      return fields[x];
+      var field = fields[x];
+      if(!field.dirty) {
+        field.value = model[x].value;
+      }
+      return field;
     }).reduce((x, y) =>{ x[y.name] = y; return x; }, {});
     this.setState({fields: newFields});
   }
