@@ -1,6 +1,10 @@
 {
   "name": "freakin-react-forms",
+<<<<<<< HEAD
+  "version": "0.0.1",
+=======
   "version": "0.0.2",
+>>>>>>> f6e336ff7fec10296125f2de3b93ea16342607a0
   "description": "",
   "main": "lib/freakin-react-forms.js",
   "scripts": {
@@ -42,12 +46,20 @@
     "webpack-validator": "^2.2.7"
   },
   "dependencies": {
+<<<<<<< HEAD
+    "autoprefixer": "^6.5.1",
+=======
+>>>>>>> f6e336ff7fec10296125f2de3b93ea16342607a0
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-hot-loader": "^3.0.0-beta.2",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
+<<<<<<< HEAD
+    "uuid": "^2.0.3"
+  }
+=======
     "selectn": "^1.1.1",
     "uuid": "^2.0.3",
     "precommit-hook-eslint": "^3.0.0"
@@ -57,4 +69,5 @@
     "lint",
     "testOnce"
   ]
+>>>>>>> f6e336ff7fec10296125f2de3b93ea16342607a0
 }

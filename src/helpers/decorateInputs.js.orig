@@ -10,6 +10,9 @@ const decorateInput = (children, model) => {
       if (typeof property !== 'object') {
         throw new Error(`No property on model with name: ${x.frfProperty}!`);
       }
+<<<<<<< HEAD
+      return React.cloneElement(x, {data: modelProperty, dataVal:modelProperty.value});
+=======
         // so if your Inputs are redux containers, they will not rerender if the top level properties
         // of "modelProperty" have not changed, since we are changing the deeper values, we need a
         // couple hacks here (dataVal and rerenderHack) to trigger a rerender if those props have changed
@@ -18,6 +21,7 @@ const decorateInput = (children, model) => {
         dataVal: property.value,
         rerenderHack: property.errors.length > 0 ? property.errors : undefined
       });
+>>>>>>> f6e336ff7fec10296125f2de3b93ea16342607a0
     }
     let clonedItems = decorateInput(x.props.children, model);
     return React.cloneElement(x, {children: clonedItems});
