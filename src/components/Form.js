@@ -21,12 +21,12 @@ class Form extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    const model = newProps.models;
+    const model = newProps.model;
     const fields = this.state.fields;
     const newFields = Object.keys(fields).map(x => {
       fields[x].value = model[x].value;
       return fields[x];
-    });
+    }).reduce((x, y) =>{ x[y.name] = y; return x; }, {});
     this.setState({fields: newFields});
   }
 
