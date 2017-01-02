@@ -12,21 +12,24 @@ const normalizeModel = (props, events) => {
   const model = props.model;
   const modelArray = model && Object.keys(model).map((x, i) => {
       //validate required props
-    const item = model[x];
-    let clone = Object.assign({}, item);
-    clone.label = propToLabel(item.label || item.name);
-    clone.placeholder = propToLabel(item.placeholder) || propToLabel(item.label || item.name);
-    clone.rules = item.rules || [];
-    clone.value = data[item.name] || '';
-    clone.originalValue = item.value || '';
-    clone.onChange = events.onChangeHandler;
-    clone.onBlur = events.onBlurHandler;
-    clone.errors = [];
-    clone.invalid = false;
-    clone.key = formName + '_' + i;
-    return clone;
-  });
-  return modelArray.reduce((prev, next) => { prev[next.name] = next; return prev;}, {});
+      const item = model[x];
+      let clone = Object.assign({}, item);
+      clone.label = propToLabel(item.label || item.name);
+      clone.placeholder = propToLabel(item.placeholder) || propToLabel(item.label || item.name);
+      clone.rules = item.rules || [];
+      clone.value = item.value || '';
+// clone.originalValue = item.value || '';
+      clone.onChange = events.onChangeHandler;
+      clone.onBlur = events.onBlurHandler;
+      clone.errors = [];
+      clone.invalid = false;
+      clone.key = formName + '_' + i;
+      return clone;
+    });
+  return modelArray.reduce((prev, next) => {
+    prev[next.name] = next;
+    return prev;
+  }, {});
 
 };
 

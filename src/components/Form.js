@@ -9,12 +9,25 @@ class Form extends React.Component {
     this.submitHandler = props.submitHandler;
 
     const eventHandler = {onChangeHandler: this.onChangeHandler.bind(this), onBlurHandler: this.onBlurHandler(this)};
-    const fields = normalizeModel(props, {}, eventHandler);
+    const fields = normalizeModel(props, eventHandler);
 
     this.state = {
       fields,
       formIsValid: true
     };
+  }
+
+  componentWillReceiveProps(newProps) {
+    const model = newProps.model;
+    const fields = this.state.fields;
+    const newFields = Object.keys(fields).map(x => {
+      var field = fields[x];
+      if(!field.dirty) {
+        field.value = model[x].value;
+      }
+      return field;
+    }).reduce((x, y) =>{ x[y.name] = y; return x; }, {});
+    this.setState({fields: newFields});
   }
 
   validateField(field, fields) { return validationRunner(field, fields); }
