@@ -13,12 +13,18 @@ const normalizeModel = (props, events) => {
   const modelArray = model && Object.keys(model).map((x, i) => {
     //validate required props
     const item = model[x];
+    let value = item.value;
+    if (!value && item.type === 'array') {
+      value = [];
+    } else {
+      value = '';
+    }
+
     let clone = Object.assign({}, item);
     clone.label = propToLabel(item.label || item.name);
     clone.placeholder = propToLabel(item.placeholder) || propToLabel(item.label || item.name);
     clone.rules = item.rules || [];
-    clone.value = item.value || '';
-    // clone.originalValue = item.value || '';
+    clone.value = value;
     clone.onChange = events.onChangeHandler;
     clone.onBlur = events.onBlurHandler;
     clone.errors = [];
