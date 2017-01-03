@@ -5,19 +5,20 @@ export default {
       // could be an array for select-multiple or a string, both are fine this way
       return field.value && field.value.length > 0;
     }
-    return field.value.trim().length > 0;
+    return field.value && field.value.trim().length > 0;
   },
   minlength(field, rule) {
-    return field.value.length >= rule.minLength;
+    return field.value && field.value.length >= rule.minLength;
   },
 
   // http://docs.jquery.com/Plugins/Validation/Methods/maxlength
   maxlength(field, rule) {
-    return field.value.length <= rule.maxLength;
+    return field.value && field.value.length <= rule.maxLength;
   },
 
   // http://docs.jquery.com/Plugins/Validation/Methods/rangelength
   rangelength(field, rule) {
+    if (!field.value) { return false; }
     let length = field.value.length;
     return ( length >= rule.minLength && length <= rule.maxLength );
   },
