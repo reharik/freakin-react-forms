@@ -30,7 +30,7 @@ class Form extends React.Component {
     this.setState({fields: newFields});
   }
 
-  handleChange(fieldName, value, change) {
+  handleChange = (fieldName, value, change) => {
     const fields = this.state.fields;
     let field = fields[Object.keys(fields).filter(x => fields[x].name === fieldName)[0]];
     if (!field) {
@@ -49,12 +49,12 @@ class Form extends React.Component {
         .reduce((x, y) =>{ x[y.name] = y; return x; }, {}),
       formIsValid: Object.keys(fields).some(f => fields[f].errors && fields[f].errors.length > 0)
     });
-  }
+  };
 
-  generateNameValueModel() {
+  generateNameValueModel = () => {
     const fields = this.state.fields;
     return Object.keys(fields).reduce((x, y) =>{ x[y] = fields[y].value; return x; }, {});
-  }
+  };
 
   onChangeHandler = (e) => {
     return e.target ? this.handleChange(e.target.name, e.target.value, true) : null;
@@ -73,11 +73,12 @@ class Form extends React.Component {
       this.errors = this.errors.concat(fields[x].errors);
       return fields[x];
     }).reduce((x, y) =>{ x[y.name] = y; return x; }, {});
-
-    this.setState({fields: newFieldsState, formIsValid: this.errors.length <= 0, errors: this.errors});
-    if (this.errors.length <= 0) {
-      this.props.submitHandler(this.generateNameValueModel());
-    }
+    setTimeout(function() {
+      this.setState({fields: newFieldsState, formIsValid: this.errors.length <= 0, errors: this.errors});
+      if (this.errors.length <= 0) {
+        this.props.submitHandler(this.generateNameValueModel());
+      }
+    },2000)
   };
 
   render() {
