@@ -4,17 +4,16 @@ import normalizeModel from './../helpers/normalizeModel';
 import decorateInputs from './../helpers/decorateInputs';
 
 class Form extends React.Component {
-  constructor(props) {
-    super(props);
-    this.submitHandler = props.submitHandler;
+  
+  state = {
+    formIsValid: true
+  };
 
-    const eventHandler = {onChangeHandler: this.onChangeHandler.bind(this), onBlurHandler: this.onBlurHandler(this)};
-    const fields = normalizeModel(props, eventHandler);
-
-    this.state = {
-      fields,
-      formIsValid: true
-    };
+  componentWillMount() {
+    const eventHandler = {onChangeHandler: this.onChangeHandler, onBlurHandler: this.onBlurHandler};
+    const fields = normalizeModel(this.props, eventHandler);
+    this.newChildren = decorateInputs(this.props.children, fields);
+    this.setState({fields});
   }
 
   componentWillReceiveProps(newProps) {
@@ -23,14 +22,15 @@ class Form extends React.Component {
     const newFields = Object.keys(fields).map(x => {
       let field = fields[x];
       if (!field.dirty || newProps.reset) {
-        field.value = model[x].value;
+        let value = model[x].value || '';
+        if (model[x].type === 'array' && value === '') {
+          value = [];
+        field.value = value;
       }
       return field;
-    }).reduce((x, y) =>{ x[y.name] = y; return x; }, {});
+    }}).reduce((x, y) =>{ x[y.name] = y; return x; }, {});
     this.setState({fields: newFields});
   }
-
-  validateField(field, fields) { return validationRunner(field, fields); }
 
   handleChange(fieldName, value, change) {
     const fields = this.state.fields;
@@ -42,7 +42,7 @@ class Form extends React.Component {
       field.dirty = field.value !== value;
       field.value = value;
     }
-    field.errors = this.validateField(field, fields);
+    field.errors = validationRunner(field, fields);
 
     field.invalid = field.errors.length > 0;
     this.setState({
@@ -58,35 +58,34 @@ class Form extends React.Component {
     return Object.keys(fields).reduce((x, y) =>{ x[y] = fields[y].value; return x; }, {});
   }
 
-  onChangeHandler(e) {
+  onChangeHandler = (e) => {
     return e.target ? this.handleChange(e.target.name, e.target.value, true) : null;
-  }
+  };
 
-  onBlurHandler(e) {
+  onBlurHandler = (e) => {
     return e.target ? this.handleChange(e.target.name, e.target.value) : null;
-  }
+  };
 
-  onSubmitHandler(e) {
+  onSubmitHandler = (e) =>{
     e.preventDefault();
     this.errors = [];
     const fields = this.state.fields;
     let newFieldsState = Object.keys(fields).map(x => {
-      fields[x].errors = this.validateField(fields[x], this.state.fields);
+      fields[x].errors = validationRunner(fields[x], this.state.fields);
       this.errors = this.errors.concat(fields[x].errors);
       return fields[x];
     }).reduce((x, y) =>{ x[y.name] = y; return x; }, {});
 
     this.setState({fields: newFieldsState, formIsValid: this.errors.length <= 0, errors: this.errors});
     if (this.errors.length <= 0) {
-      this.submitHandler(this.generateNameValueModel());
+      this.props.submitHandler(this.generateNameValueModel());
     }
-  }
+  };
 
   render() {
     // I have moved this down to render, as it is necessary when using "connect"ed inputs from redux
     // also superficial evidence is that it does not affect the number of time decorate is called
-    this.newChildren = decorateInputs(this.props.children, this.state.fields);
-    return (<form onSubmit={this.onSubmitHandler.bind(this)} >
+    return (<form onSubmit={onSubmitHandler} >
       {this.newChildren}
     </form>);
   }

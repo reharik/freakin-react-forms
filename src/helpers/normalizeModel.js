@@ -13,11 +13,9 @@ const normalizeModel = (props, events) => {
   const modelArray = model && Object.keys(model).map((x, i) => {
     //validate required props
     const item = model[x];
-    let value = item.value;
-    if (!value && item.type === 'array') {
+    let value = item.value || '';
+    if (item.type === 'array' && value === '') {
       value = [];
-    } else {
-      value = '';
     }
 
     let clone = Object.assign({}, item);
