@@ -4,7 +4,6 @@ import normalizeModel from './../helpers/normalizeModel';
 import decorateInputs from './../helpers/decorateInputs';
 
 class Form extends React.Component {
-  
   state = {
     formIsValid: true
   };
@@ -12,7 +11,6 @@ class Form extends React.Component {
   componentWillMount() {
     const eventHandler = {onChangeHandler: this.onChangeHandler, onBlurHandler: this.onBlurHandler};
     const fields = normalizeModel(this.props, eventHandler);
-    this.newChildren = decorateInputs(this.props.children, fields);
     this.setState({fields});
   }
 
@@ -85,6 +83,7 @@ class Form extends React.Component {
   render() {
     // I have moved this down to render, as it is necessary when using "connect"ed inputs from redux
     // also superficial evidence is that it does not affect the number of time decorate is called
+    this.newChildren = decorateInputs(this.props.children, this.state.fields);
     return (<form onSubmit={onSubmitHandler} >
       {this.newChildren}
     </form>);
