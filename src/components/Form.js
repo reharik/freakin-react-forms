@@ -23,10 +23,14 @@ class Form extends React.Component {
         let value = model[x].value || '';
         if (model[x].type === 'array' && value === '') {
           value = [];
+        }
         field.value = value;
       }
+      if (newProps.reset) {
+        field.errors = [];
+      }
       return field;
-    }}).reduce((x, y) =>{ x[y.name] = y; return x; }, {});
+    }).reduce((x, y) =>{ x[y.name] = y; return x; }, {});
     this.setState({fields: newFields});
   }
 
