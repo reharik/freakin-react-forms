@@ -84,7 +84,7 @@ class Form extends React.Component {
     // I have moved this down to render, as it is necessary when using "connect"ed inputs from redux
     // also superficial evidence is that it does not affect the number of time decorate is called
     this.newChildren = decorateInputs(this.props.children, this.state.fields);
-    return (<form onSubmit={onSubmitHandler} >
+    return (<form onSubmit={this.onSubmitHandler} >
       {this.newChildren}
     </form>);
   }
