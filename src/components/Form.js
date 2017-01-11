@@ -73,12 +73,11 @@ class Form extends React.Component {
       this.errors = this.errors.concat(fields[x].errors);
       return fields[x];
     }).reduce((x, y) =>{ x[y.name] = y; return x; }, {});
-    setTimeout(function() {
-      this.setState({fields: newFieldsState, formIsValid: this.errors.length <= 0, errors: this.errors});
-      if (this.errors.length <= 0) {
-        this.props.submitHandler(this.generateNameValueModel());
-      }
-    },2000)
+
+    this.setState({fields: newFieldsState, formIsValid: this.errors.length <= 0, errors: this.errors});
+    if (this.errors.length <= 0) {
+      this.props.submitHandler(this.generateNameValueModel());
+    }
   };
 
   render() {
