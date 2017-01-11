@@ -82,7 +82,6 @@ export default {
 
   // http://docs.jquery.com/Plugins/Validation/Methods/equalTo
 
-  // this wont work because fields is a hash map rather than array. fix it when you need it
   equalTo(field, rule, fields) {
     return field.value === fields[rule.compareField].value;
   }

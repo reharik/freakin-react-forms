@@ -29,6 +29,7 @@ const normalizeModel = (props, events) => {
     clone.onBlur = events.onBlurHandler;
     clone.errors = [];
     clone.invalid = false;
+    clone.formName = formName;
     clone.key = formName + '_' + i;
     return clone;
   });
