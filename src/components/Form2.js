@@ -17,7 +17,7 @@ const Form2 = () => {
     field.invalid = field.errors.length > 0;
     return {
       fields: Object.keys(fields)
-        .map(x => fields[fieldName] ? field : fields[x])
+        .map(x => x === fieldName ? field : fields[x])
         .reduce((x, y) =>{ x[y.name] = y; return x; }, {}),
       formIsValid: Object.keys(fields).some(f => fields[f].errors && fields[f].errors.length > 0)
     };
