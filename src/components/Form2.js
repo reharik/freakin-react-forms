@@ -65,6 +65,6 @@ const Form2 = () => {
     generateNameValueModel,
     onChangeHandler
   }
-};
+}();
 
 export default Form2;
