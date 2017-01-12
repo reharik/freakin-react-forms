@@ -4,7 +4,7 @@ import normalizeModel from './../helpers/normalizeModel';
 const Form2 = () => {
 
   const handleChange = (fieldName, value, change, fields) => {
-    let field = fields[Object.keys(fields).filter(x => fields[x].name === fieldName)[0]];
+    let field = {...fields[fieldName]};
     if (!field) {
       return;
     }
@@ -17,7 +17,7 @@ const Form2 = () => {
     field.invalid = field.errors.length > 0;
     return {
       fields: Object.keys(fields)
-        .map(x => fields[x].name === fieldName ? field : fields[x])
+        .map(x => fields[fieldName] ? field : fields[x])
         .reduce((x, y) =>{ x[y.name] = y; return x; }, {}),
       formIsValid: Object.keys(fields).some(f => fields[f].errors && fields[f].errors.length > 0)
     };
@@ -40,7 +40,7 @@ const Form2 = () => {
     let newFieldsState = Object.keys(fields).map(x => {
       fields[x].errors = validationRunner(fields[x], fields);
       errors = errors.concat(fields[x].errors);
-      return fields[x];
+      return {...fields[x]};
     }).reduce((x, y) =>{ x[y.name] = y; return x; }, {});
 
     return {fields: newFieldsState, formIsValid: errors.length <= 0, errors: errors};
