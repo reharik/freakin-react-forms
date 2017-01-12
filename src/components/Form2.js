@@ -27,12 +27,12 @@ const Form2 = () => {
     return Object.keys(fields).reduce((x, y) =>{ x[y] = fields[y].value; return x; }, {});
   };
 
-  const onChangeHandler = (fields) => {
-    return (e) => e.target ? handleChange(e.target.name, e.target.value, true, fields) : null;
+  const onChangeHandler = (e, fields) => {
+    return e.target ? handleChange(e.target.name, e.target.value, true, fields) : null;
   };
 
-  const onBlurHandler = (fields) => {
-    return (e) => e.target ? handleChange(e.target.name, e.target.value, false, fields) : null;
+  const onBlurHandler = (e, fields) => {
+    return e.target ? handleChange(e.target.name, e.target.value, false, fields) : null;
   };
 
   const validateForm = (fields) =>{

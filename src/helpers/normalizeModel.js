@@ -10,34 +10,33 @@ export function propToLabel(val) {
 const normalizeModel = (formName, model, events) => {
   formName = formName || uuid.v4();
   const modelArray = model && Object.keys(model).map((x, i) => {
-    //validate required props
-    const item = model[x];
-    let value = item.value || '';
-    if (item.type === 'array' && value === '') {
-      value = [];
-    }
+      //validate required props
+      const item = model[x];
+      let value = item.value || '';
+      if (item.type === 'array' && value === '') {
+        value = [];
+      }
 
-    let clone = Object.assign({}, item);
-    clone.label = propToLabel(item.label || item.name);
-    clone.placeholder = propToLabel(item.placeholder) || propToLabel(item.label || item.name);
-    clone.rules = item.rules || [];
-    clone.value = value;
-    clone.errors = [];
-    clone.invalid = false;
-    clone.formName = formName;
-    clone.key = formName + '_' + i;
-    return clone;
-  });
+      let clone = Object.assign({}, item);
+      clone.label = propToLabel(item.label || item.name);
+      clone.placeholder = propToLabel(item.placeholder) || propToLabel(item.label || item.name);
+      clone.rules = item.rules || [];
+      clone.value = value;
+      clone.errors = [];
+      clone.invalid = false;
+      clone.formName = formName;
+      clone.key = formName + '_' + i;
+      return clone;
+    });
 
   return modelArray && modelArray.map(item => {
-    item.onChange = events.stateManagement(events.onChangeHandler(modelArray));
-    item.onBlur = events.stateManagement(events.onBlurHandler(modelArray));
-    return item;
-  }).reduce((prev, next) => {
-    prev[next.name] = next;
-    return prev;
-  }, {});
-
+      item.onChange = e => events.stateManagement(events.onChangeHandler(e, modelArray));
+      item.onBlur = e => events.stateManagement(events.onBlurHandler(e, modelArray));
+      return item;
+    }).reduce((prev, next) => {
+      prev[next.name] = next;
+      return prev;
+    }, {});
 };
 
 export default normalizeModel;
