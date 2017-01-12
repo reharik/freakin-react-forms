@@ -3,8 +3,7 @@ import normalizeModel from './../helpers/normalizeModel';
 
 const Form2 = () => {
 
-  const handleChange = (fieldName, value, change) => {
-    const fields = this.props.fields;
+  const handleChange = (fieldName, value, change, fields) => {
     let field = fields[Object.keys(fields).filter(x => fields[x].name === fieldName)[0]];
     if (!field) {
       return;
@@ -33,7 +32,7 @@ const Form2 = () => {
   };
 
   const onBlurHandler = (fields) => {
-    return (e) => e.target ? handleChange(e.target.name, e.target.value, fields) : null;
+    return (e) => e.target ? handleChange(e.target.name, e.target.value, false, fields) : null;
   };
 
   const validateForm = (fields) =>{
