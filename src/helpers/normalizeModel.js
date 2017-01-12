@@ -7,7 +7,7 @@ export function propToLabel(val) {
     : val;
 }
 
-const normalizeModel = (formName, model, events) => {
+const normalizeModel = (formName, model) => {
   formName = formName || uuid.v4();
   const modelArray = model && Object.keys(model).map((x, i) => {
       //validate required props
