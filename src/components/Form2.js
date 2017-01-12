@@ -46,8 +46,8 @@ const Form2 = () => {
     return {fields: newFieldsState, formIsValid: errors.length <= 0, errors: errors};
   };
 
-  const buildModel = (formName, model) => {
-    return normalizeModel(formName, model, {onChangeHandler, onBlurHandler});
+  const buildModel = (formName, model, stateManagement) => {
+    return normalizeModel(formName, model, {onChangeHandler, onBlurHandler, stateManagement});
   };
 
   const trySubmitForm = (fields, action) =>{

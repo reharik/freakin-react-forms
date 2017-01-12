@@ -30,8 +30,8 @@ const normalizeModel = (formName, model, events) => {
   });
 
   return modelArray && modelArray.map(item => {
-    item.onChange = events.onChangeHandler(modelArray);
-    item.onBlur = events.onBlurHandler(modelArray);
+    item.onChange = events.stateManagement(events.onChangeHandler(modelArray));
+    item.onBlur = events.stateManagement(eevents.onBlurHandler(modelArray));
     return item;
   }).reduce((prev, next) => {
     prev[next.name] = next;
