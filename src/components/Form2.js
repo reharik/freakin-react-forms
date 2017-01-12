@@ -1,7 +1,7 @@
 import validationRunner from './../helpers/validation/validationRunner';
 import normalizeModel from './../helpers/normalizeModel';
 
-const Form2 = () => {
+const Form2 = function() {
 
   const handleChange = (fieldName, value, change, fields) => {
     let field = {...fields[fieldName]};
