@@ -63,7 +63,7 @@ const Form2 = () => {
     buildModel,
     validateForm,
     generateNameValueModel,
-    handleChange
+    onChangeHandler
   }
 };
 
