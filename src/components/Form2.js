@@ -47,7 +47,7 @@ const Form2 = function() {
   };
 
   const buildModel = (formName, model, events) => {
-    return normalizeModel(formName, model, {onChange, onBlur});
+    return normalizeModel(formName, model, events);
   };
 
   const trySubmitForm = (fields, action) =>{
