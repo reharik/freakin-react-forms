@@ -5,6 +5,10 @@ export default {
       // could be an array for select-multiple or a string, both are fine this way
       return field.value && field.value.length > 0;
     }
+    if(field.value.id){
+      // for cases where field represents and entity with id/display pair
+      return field.value.id.length > 0;
+    }
     return field.value && field.value.trim().length > 0;
   },
   minlength(field, rule) {
