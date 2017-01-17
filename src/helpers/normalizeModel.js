@@ -29,7 +29,7 @@ const normalizeModel = (formName, model, events) => {
       return clone;
     });
 
-  return modelArray && modelArray.map(x=> ({...x, ...events})).reduce((prev, next) => {
+  return modelArray && modelArray.map(x=> ({...x, ...events}) ).reduce((prev, next) => {
       prev[next.name] = next;
       return prev;
     }, {});

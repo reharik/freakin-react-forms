@@ -24,7 +24,8 @@ const Form2 = function() {
   };
 
   const generateNameValueModel = (fields) => {
-    return Object.keys(fields).reduce((x, y) =>{ x[y] = fields[y].value; return x; }, {});
+    //this is for cases where you have an entity with an id/display pair
+    return Object.keys(fields).reduce((x, y) =>{ x[y] = fields[y].value.id || fields[y].value; return x; }, {});
   };
 
   const onChangeHandler = (fields) => {
