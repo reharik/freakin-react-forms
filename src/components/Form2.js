@@ -39,7 +39,7 @@ const Form2 = function() {
     return (e) => e.target ? handleChange(e.target.name, e.target.value, false, fields) : null;
   };
 
-  const validateForm = (fields) =>{
+  const prepareSubmission = (fields) =>{
     let errors = [];
     let newFieldsState = Object.keys(fields).map(x => {
       fields[x].errors = validationRunner(fields[x], fields);
@@ -47,7 +47,7 @@ const Form2 = function() {
       return {...fields[x]};
     }).reduce((x, y) =>{ x[y.name] = y; return x; }, {});
 
-    return {fields: newFieldsState, formIsValid: errors.length <= 0, errors: errors};
+    return {fields: generateNameValueModel(newFieldsState), formIsValid: errors.length <= 0, errors: errors};
   };
 
   const buildModel = (formName, model, events) => {
@@ -56,7 +56,7 @@ const Form2 = function() {
 
   return {
     buildModel,
-    validateForm,
+    prepareSubmission,
     generateNameValueModel,
     onChangeHandler
   }
