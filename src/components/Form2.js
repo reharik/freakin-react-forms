@@ -25,7 +25,10 @@ const Form2 = function() {
 
   const generateNameValueModel = (fields) => {
     //this is for cases where you have an entity with an id/display pair
-    return Object.keys(fields).reduce((x, y) =>{ x[y] = fields[y].value.id || fields[y].value; return x; }, {});
+    return Object.keys(fields).reduce((x, y) => {
+      x[y] = fields[y].value;
+      return x;
+    }, {});
   };
 
   const onChangeHandler = (fields) => {
@@ -51,16 +54,7 @@ const Form2 = function() {
     return normalizeModel(formName, model, events);
   };
 
-  const trySubmitForm = (fields, action) =>{
-    const result = validateForm(fields);
-    if(result.formIsValid){
-      action(generateNameValueModel(result.fields))
-    }
-    return result;
-  };
-
   return {
-    trySubmitForm,
     buildModel,
     validateForm,
     generateNameValueModel,
