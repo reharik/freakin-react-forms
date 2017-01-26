@@ -47,7 +47,7 @@ const Form2 = function() {
       return {...fields[x]};
     }).reduce((x, y) =>{ x[y.name] = y; return x; }, {});
 
-    return {fields: generateNameValueModel(newFieldsState), formIsValid: errors.length <= 0, errors: errors};
+    return {fields: newFieldsState, fieldValues: generateNameValueModel(newFieldsState), formIsValid: errors.length <= 0, errors: errors};
   };
 
   const buildModel = (formName, model, events) => {
