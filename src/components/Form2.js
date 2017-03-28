@@ -19,12 +19,13 @@ const Form2 = function() {
       fields: Object.keys(fields)
         .map(x => x === fieldName ? field : fields[x])
         .reduce((x, y) =>{ x[y.name] = y; return x; }, {}),
-      formIsValid: Object.keys(fields).some(f => fields[f].errors && fields[f].errors.length > 0)
+      formIsValid: Object.keys(fields).some(f => fields[f].errors && fields[f].errors.length > 0),
+      errors: field.errors
     };
   };
 
   const generateNameValueModel = (fields) => {
-    //this is for cases where you have an entity with an id/display pair
+    //this is for cases where you have an entity with an id/display pair e.g. dropdown or multiselect
     return Object.keys(fields).reduce((x, y) => {
       x[y] = fields[y].value;
       return x;
@@ -47,7 +48,9 @@ const Form2 = function() {
       return {...fields[x]};
     }).reduce((x, y) =>{ x[y.name] = y; return x; }, {});
 
-    return {fields: newFieldsState, fieldValues: generateNameValueModel(newFieldsState), formIsValid: errors.length <= 0, errors: errors};
+    return {fields: newFieldsState,
+      fieldValues: generateNameValueModel(newFieldsState),
+      formIsValid: errors.length <= 0, errors: errors};
   };
 
   const buildModel = (formName, model, events) => {
